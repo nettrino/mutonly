@@ -748,7 +748,8 @@ void Fuzzer::Loop() {
     MD.SetCorpus(&Corpus);
   while (true) {
     auto Now = system_clock::now();
-    if (duration_cast<seconds>(Now - LastCorpusReload).count() >=
+    if (!Options.MutOnly &&
+        duration_cast<seconds>(Now - LastCorpusReload).count() >=
         Options.ReloadIntervalSec) {
       RereadOutputCorpus(MaxInputLen);
       LastCorpusReload = system_clock::now();
